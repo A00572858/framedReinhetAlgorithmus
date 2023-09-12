@@ -4,7 +4,7 @@ The " Reinheit Algorithmus" or "Purity Algorithm" is a Machine Learning classifi
 
 This algorithm was made with _sklearn Logistic Regression_ library on python.
 
-The file "beers.csv" contains data on 2000+ american craft beers
+The file "beers.csv" contains data on 2000+ american craft beers taken from (https://www.kaggle.com/datasets/nickhould/craft-cans)
 
 # Notes on current version
 
