@@ -7,4 +7,6 @@ This algorithm was made with _sklearn Logistic Regression_ library on python.
 The file "beers.csv" contains data on 2000+ american craft beers
 
 # Notes on current version
-NaN
+
+**Accuracy = 84.3%**
+
