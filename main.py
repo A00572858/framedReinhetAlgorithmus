@@ -9,7 +9,7 @@ from sklearn.metrics import confusion_matrix
 '''
     Rodrigo Muñoz Guerrero (A00572858)
     Created: 11/09/2023
-    Last edited: 11/09/2023
+    Last edited: 12/09/2023
 
     Title: Framed Reinheit Algorithmus
 
