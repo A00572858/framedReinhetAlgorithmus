@@ -1,9 +1,10 @@
 import pandas as pd
+import matplotlib as plt
 
-import sklearn.metrics as sm
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
 
 '''
     Rodrigo Muñoz Guerrero (A00572858)
@@ -91,12 +92,68 @@ y_test['class']=y_test['class'].astype('int')
 model = LogisticRegression().fit(x_train, y_train)
 
 '''
-    If wanted to, the lines below can be uncommented to show the prediction array of the test data
+    And we predict the data for our train data to check on the performance
 '''
-# prediction = model.predict(x_test)
-# print(prediction)
+train_prediction = model.predict(x_train)
 
 '''
-    And finally, the accuracy or score is printed in console (aproximately 83% accurate)
+    If you wish to see the grphics of the difference between the training prediction and the real data,
+    uncomment the code below and run
 '''
-print(model.score(x_test, y_test))
+# fig, (plot1, plot2) = plt.subplots(1,2, figsize=(10,5))
+# plot1.scatter(x_train['ibu'], x_train['abv'], c=y_train['class'])
+# plot1.set_title("Real")
+# plot2.scatter(x_train['ibu'], x_train['abv'], c=train_prediction)
+# plot2.set_title("Prediction")
+
+'''
+    We calculate the confusion matrix with help of sklearn and assign the data to the auxiliar variables
+'''
+train_conma = confusion_matrix(y_train, train_prediction)
+TTP = train_conma[1, 1]     # Train True Positives
+TTN = train_conma[0, 0]     # Train True Negatives
+TFP = train_conma[0, 1]     # Train False Positives
+TFN = train_conma[1, 0]     # Train False Negatives
+
+'''
+    And we calculate and display the accuracy and F1 score of the training run
+'''
+train_accuracy = ( TTP + TTN ) / ( TTP + TTN + TFP + TFN )
+train_f1 = ( 2 * TTP ) / ( 2 * TTP + TFP + TFN )
+
+print("Train accuaracy is: " + str(train_accuracy * 100) + "%")
+print("Train F1 score is: " + str(train_f1 * 100) + "%")
+print("=========================================")
+
+'''
+    Finally, we predict the test data
+'''
+prediction = model.predict(x_test)
+
+'''
+    If you wish to see the grphics of the difference between the test prediction and the real data,
+    uncomment the code below and run
+'''
+# fig, (plot1, plot2) = plt.subplots(1,2, figsize=(10,5))
+# plot1.scatter(x_test['ibu'], x_test['abv'], c=y_test['class'])
+# plot1.set_title("Real")
+# plot2.scatter(x_test['ibu'], x_test['abv'], c=prediction)
+# plot2.set_title("Prediction")
+
+'''
+    We calculate the confusion matrix again and assign the data to the auxiliar variables
+'''
+conma = confusion_matrix(y_test, prediction)
+TP = train_conma[1, 1]     # Train True Positives
+TN = train_conma[0, 0]     # Train True Negatives
+FP = train_conma[0, 1]     # Train False Positives
+FN = train_conma[1, 0]     # Train False Negatives
+
+'''
+    And we finally, calculate and display the accuracy and F1 score of the test run
+'''
+accuracy = ( TP + TN ) / ( TP + TN + FP + FN )
+f1 = ( 2 * TP ) / ( 2 * TP + FP + FN )
+print("Test accuaracy is: " + str(accuracy * 100) + "%")
+print("Test F1 score is: " + str(f1 * 100) + "%")
+print("=========================================")
